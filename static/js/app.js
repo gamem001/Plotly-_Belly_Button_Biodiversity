@@ -20,8 +20,6 @@ function init() {
     
 };
 
-
-
 // this is returning data based on dropdown selection
 function dropDownChange(param_func) {
     // d3.select('#sample-metadata').html("")
