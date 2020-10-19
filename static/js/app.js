@@ -1,26 +1,36 @@
 let data = []
 //call data from samples.js using d3
-d3.json('samples.json').then((input) => {
-    console.log(input);
-    data = input;
-    //populate dropdown menu with 'name' id's
-    input['names'].forEach(dropDown => {
-        d3.select("#selDataset")
-            .append("option")
-            .text(dropDown)
-            .property("value", dropDown)
-    })
-});
+function init() {
+    d3.json('samples.json').then((input) => {
+        console.log(input);
+        data = input;
+        //populate dropdown menu with 'name' id's
+        input['names'].forEach(dropDown => {
+            d3.select("#selDataset")
+                .append("option")
+                .text(dropDown)
+                .property("value", dropDown)
+        })
+    }).then(() => {
+        let dropDown= d3.select("#selDataset");
+        // Assign the value of the dropdown menu option to a variable
+        let dataset = dropDown.property("value");
+        optionChanged(dataset)
+    }); 
+    
+};
+
 
 
 // this is returning data based on dropdown selection
-function dropDownChange(sample) {
-    d3.select('#sample-metadata').html("")
-    let dropDown= d3.select("#selDataset");
-    // Assign the value of the dropdown menu option to a variable
-    let dataset = dropDown.property("value");
+function dropDownChange(param_func) {
+    // d3.select('#sample-metadata').html("")
+    // let dropDown= d3.select("#selDataset");
+    // // Assign the value of the dropdown menu option to a variable
+    // let dataset = dropDown.property("value");
     // Append data selected from dropdown to demographics table
-    let filteredData = data.metadata.filter(input => input['id'] == dataset);
+    d3.select('#sample-metadata').html("")
+    let filteredData = data.metadata.filter(input => input['id'] == param_func);
     Object.entries(filteredData[0]).forEach(([key, value]) => {
         d3.select('#sample-metadata')
             .append("div")
@@ -65,9 +75,9 @@ function allPlots(sample) {
         type: 'bar',
         orientation: 'h',
         x: topTen,
-        y: id,
+        y: id.map(otuID => `OTU ${otuID}`).reverse(),
         text: labels,
-        name: 'Gross'
+        name: 'Gross Belly Button Data'
     };
     
     // data
@@ -75,7 +85,7 @@ function allPlots(sample) {
     
     // Apply the group bar mode to the layout
     let layout = {
-        title: 'Nastiness Belly Button Bacteria',
+        title: 'Belly Button Bacteria',
         margin: {
             l: 100,
             r: 100,
@@ -85,6 +95,32 @@ function allPlots(sample) {
     };
     // Render the plot to the div tag with id "bar"
     Plotly.newPlot('bar', dataTrace,layout);
-    });
 
+    let trace1 = {
+        x: id,
+        y: sampleValues,
+        mode: 'markers',
+        text: id,
+        marker: {
+          color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)', 'rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)','rgb(93, 164, 214)', 'rgb(255, 144, 14)'],
+          opacity: [1, 0.8, 0.6, 0.4, 1, 0.8, 0.6, 0.4, 1, 0.8],
+          size: sampleValues
+        }
+      };
+      
+      let dataBubble = [trace1];
+      
+      let layoutBubble = {
+        title: 'More Belly Button Bacteria',
+        showlegend: false,
+        height: 600,
+        width: 600,
+        hovermode: "closest"
+      };
+      
+      Plotly.newPlot('bubble', dataBubble, layoutBubble);
+    });
 };
+
+init();
+
