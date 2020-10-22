@@ -1,5 +1,6 @@
+//array to hold data
 let data = []
-//call data from samples.js using d3
+// initialize the data for the page, call data from samples.js using d3
 function init() {
     d3.json('samples.json').then((input) => {
         console.log(input);
@@ -11,6 +12,7 @@ function init() {
                 .text(dropDown)
                 .property("value", dropDown)
         })
+    // pass promise to next .then
     }).then(() => {
         let dropDown= d3.select("#selDataset");
         // Assign the value of the dropdown menu option to a variable
@@ -22,10 +24,6 @@ function init() {
 
 // this is returning data based on dropdown selection
 function dropDownChange(param_func) {
-    // d3.select('#sample-metadata').html("")
-    // let dropDown= d3.select("#selDataset");
-    // // Assign the value of the dropdown menu option to a variable
-    // let dataset = dropDown.property("value");
     // Append data selected from dropdown to demographics table
     d3.select('#sample-metadata').html("")
     let filteredData = data.metadata.filter(input => input['id'] == param_func);
@@ -62,20 +60,14 @@ function allPlots(sample) {
 
     //Sort the data by sample Value search results
     let topTen = sampleValues.sort((a,b) => b.sampleValues - a.sampleValues).reverse();
-    // Slice the first 10 objects for plotting
-    // let slicedData = topTen.slice(0, 10);
-    // console.log(slicedData);
-    
-    //Reverse the array to accommodate Plotly's defaults
-    // let reversedData = topTen.reverse();
-    
+          
     let trace= {
         type: 'bar',
         orientation: 'h',
         x: topTen,
         y: id.map(otuID => `OTU ${otuID}`).reverse(),
         text: labels,
-        name: 'Gross Belly Button Data'
+        name: 'Belly Button Bacteria'
     };
     
     // data
@@ -109,7 +101,7 @@ function allPlots(sample) {
       let dataBubble = [trace1];
       
       let layoutBubble = {
-        title: 'More Belly Button Bacteria',
+        title: 'Belly Button Bacteria',
         showlegend: false,
         height: 600,
         width: 600,
