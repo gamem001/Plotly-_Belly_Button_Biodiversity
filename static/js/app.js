@@ -75,7 +75,9 @@ function allPlots(sample) {
     
     // Apply the group bar mode to the layout
     let layout = {
-        title: 'Belly Button Bacteria',
+        title: 'Top Ten Belly Button Bacteria',
+        xaxis: {title: "OTU Sample Values"},
+        yaxis: {title: "OTU ID"},
         margin: {
             l: 100,
             r: 100,
@@ -101,10 +103,12 @@ function allPlots(sample) {
       let dataBubble = [trace1];
       
       let layoutBubble = {
-        title: 'Belly Button Bacteria',
+        title: 'Top Ten Belly Button Bacteria',
         showlegend: false,
-        height: 600,
+        height: 550,
         width: 600,
+        xaxis: {title: "OTU ID"},
+        yaxis: {title: "OTU Sample Value"},
         hovermode: "closest"
       };
       
