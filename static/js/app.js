@@ -106,7 +106,7 @@ function allPlots(sample) {
         title: 'Top Ten Belly Button Bacteria',
         showlegend: false,
         height: 550,
-        width: 600,
+        width: 800,
         xaxis: {title: "OTU ID"},
         yaxis: {title: "OTU Sample Value"},
         hovermode: "closest"
