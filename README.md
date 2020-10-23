@@ -1,9 +1,9 @@
 # Plotly_Belly_Button_Biodiversity
 
-Using the dataset ìBelly Button Biodiversityî, I will create an interactive dashboard. The dataset catalogs microbes that colonize human navels.
+Using the dataset ‚ÄúBelly Button Biodiversity‚Äù, I've created an interactive dashboard. The dataset catalogs microbes that colonize human navels.
 
 The dataset reveals that a small handful of microbial species (also called operational taxonomic units, or OTUs, in the study) were present in more than 70% of people, while the rest were relatively rare.
-I will read in the data using d3 in order to build a dropdown menu and plot the top ten OTUís on both a bar graph and a bubble chart. 
+I will read in the data using d3 in order to build a dropdown menu and plot the top ten OTU‚Äôs on both a bar graph and a bubble chart. 
 
 
 
